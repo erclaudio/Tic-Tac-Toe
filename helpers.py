@@ -1,3 +1,4 @@
+#helpers
 def draw_board(spots):
     board = (f"\033[4m{spots[1]}\033[0m|\033[4m{spots[2]}\033[0m|\033[4m{spots[3]}\033[0m\n"
     f"\033[4m{spots[4]}\033[0m|\033[4m{spots[5]}\033[0m|\033[4m{spots[6]}\033[0m\n"
