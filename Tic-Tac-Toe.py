@@ -1,17 +1,23 @@
 from helpers import draw_board
 from helpers import check_turn
+from helpers import check_win
 import os
 
 spots = {1:'1',2:'2',3:'3',4:'4', 5:'5', 6:'6',7:'7',8:'8',9:'9'}
 draw_board(spots)
 
 playing = True
+complete = False
 winner = ""
 turn = 0
+prev_turn = -1
 while playing:
     #reset screen 
     os.system('cls' if os.name =='nt' else 'clear')
     draw_board(spots)
+    if prev_turn == turn :
+        print("Invalid input, try again")
+    prev_turn = turn
     print("Player: "+check_turn(turn-1),", pick your spots or press Q to quit")
     choice = input()
     if choice == "q":
@@ -23,6 +29,16 @@ while playing:
         if not spots[int(choice)] in {"X", "O"}:
             turn +=1
             spots[int(choice)] = check_turn(turn)
+    if check_win(spots): 
+        playing, complete = False, True
+        print("Winner is player: "+ check_turn(turn))
+        break
+    if turn == 9 and not check_win(spots):
+        playing, complete = False, True
+        print("It's a draw")
+        break
+draw_board(spots)
+
 
 
     
